@@ -6,40 +6,42 @@
         <div class="col-md-16">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <p>
-                    Hello! Mijn naam is Charlotte maar mijn vrienden noemen mij ook wel Charlie.
-                    Leuk dat je komt kijken op mijn blog. Ik zit momenteel in mijn 3e jaar van de studie
-                    Communicatie & Multimedia Design op het NHL in Leeuwarden. Sinds begin febrauri tot eind
-                    juni loop ik stage als backend developer bij MintTwits in Londen.
-                    Met behulp van deze website (die ik overigens zelf heb gemaakt)
-                    deel ik graag met jullie al mijn Londense avonturen.
-                  </p>
-                  <p>Hou deze pagina dus goed in de gaten :-)</p>
+                  <h1>Alle berichten</h1>
                 </div>
-
                 <div class="panel-body">
-                  @foreach ($posts as $post)
-                    <article>
-                      <h3><a href="/{{ $post->id }}">{{ $post->title }}</a></h3>
-                      <h5> {{ $post->created_at->format('d F Y') }} </h5>
-                      <div class="body"> {{ substr(strip_tags($post->body), 0, 800) }}{{ strlen(strip_tags($post->body)) > 800 ? "..." : ""}}</div>
-                      @if (strlen(strip_tags($post->body)) > 800)
-                        <a href="{{ action('PostController@show', $post) }}" class="read-more">Lees verder..</a>
-                      @endif
-                      <hr>
-                    </article>
-                  @endforeach
-                </div>
+                  <div class="pull-left">
+                    <a class="btn btn-success" href="{{ url('/post/create') }}">Nieuw bericht</a>
+                  </div>
+                    @if ($message = Session::get('success'))
+                      <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                      </div>
+                    @endif
+
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Titel</th>
+                      <th>Body</th>
+                    </tr>
+
+                    @foreach ($posts as $post)
+                      <tr>
+                        <td>{{ $post->title }}</td>
+                        <td>{{ $post->body }}</td>
+                        <td>
+                          <a class="btn btn-md btn-info" href="{{ url('/post/{id}') }}">Laat zien</a>
+                          <a class="btn btn-md btn-warning" href="{{ url('post/edit', $post->id) }}">Bewerk</a>
+                          <form action="{{ action ('PostController@destroy', $post->id)}}" method="post">
+                             {{csrf_field()}}
+                             <input name="_method" type="hidden" value="DELETE">
+                             <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                          </form>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </table>
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
-		<div class="col-md-12">
-			<div class="text-center">
-				{!! $posts->links() !!}
-			</div>
-		</div>
 </div>
 @endsection
