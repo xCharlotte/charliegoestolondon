@@ -21,6 +21,6 @@ class CommentController extends Controller
       'body'=>$request->get('body')
     ]);
 
-    return redirect('/blog/'.$post->id);
+    return redirect('/'.$post->id);
   }
 }
