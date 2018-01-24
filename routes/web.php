@@ -22,7 +22,6 @@ Route::get('{post}', 'PostController@show');
 Route::post('{post}/comment','CommentController@store')->name('addcomment');
 Route::post('post/create','PostController@store');
 Route::get('post/create','PostController@create')->middleware('auth');
-Route::post('upload', 'ImageUploadController@upload');
 
 Route::delete('/post/{id}', 'PostController@destroy');
 
