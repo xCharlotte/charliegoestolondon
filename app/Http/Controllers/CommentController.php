@@ -1,10 +1,10 @@
 <?php
 
-namespace charliegoestolondon\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use charliegoestolondon\Post;
-use charliegoestolondon\Comment;
+use App\Post;
+use App\Comment;
 
 class CommentController extends Controller
 {
