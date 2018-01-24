@@ -16,13 +16,15 @@ Route::get('/', function () {
 });
 
 // Route::resource('post', 'PostController');
-
-Route::get('/', 'PostController@index');
+Route::get('/', 'BlogController@index');
+Route::get('/post', 'PostController@index');
 Route::get('{post}', 'PostController@show');
 Route::post('{post}/comment','CommentController@store')->name('addcomment');
 Route::post('post/create','PostController@store');
 Route::get('post/create','PostController@create')->middleware('auth');
 Route::post('upload', 'ImageUploadController@upload');
+
+Route::delete('/post/{id}', 'PostController@destroy');
 
 Auth::routes();
 
