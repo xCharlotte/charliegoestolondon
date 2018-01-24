@@ -173,11 +173,11 @@ return [
         /*
          * Application Service Providers...
          */
-        charliegoestolondon\Providers\AppServiceProvider::class,
-        charliegoestolondon\Providers\AuthServiceProvider::class,
-        // charliegoestolondon\Providers\BroadcastServiceProvider::class,
-        charliegoestolondon\Providers\EventServiceProvider::class,
-        charliegoestolondon\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
     ],
 

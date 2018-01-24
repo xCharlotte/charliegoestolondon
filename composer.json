@@ -24,7 +24,7 @@
             "database/factories"
         ],
         "psr-4": {
-            "charliegoestolondon\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
