@@ -12,7 +12,7 @@ class PostController extends Controller
 {
 
   public function _construct() {
-    $this->middleware('auth', ['only' => 'create', 'edit', 'store', 'destroy']);
+    $this->middleware('auth');
   }
 
   public function index(Post $post) {
@@ -47,5 +47,10 @@ class PostController extends Controller
     $post->save();
 
     return view('post.show')->with(['posts'=>$post]);
+  }
+
+  public function destroy($id) {
+    $post = Post::find($id)->delete();
+    return redirect('/post')->with('success','het is successvol verwijderd');
   }
 }
