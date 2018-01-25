@@ -12,16 +12,16 @@ class PostController extends Controller
 {
 
   public function _construct() {
-    $this->middleware('auth');
+    $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'delete']]);
   }
 
   public function index(Post $post) {
     $posts = Post::latest()->paginate(5);
-    return view('posts.index')->with(['posts'=>$posts]);
+    return view('posts.index',compact('posts',$posts));
   }
 
-  public function show(Post $post) {
-    return view('posts.show')->with(['posts'=>$post]);
+  public function show($id) {
+    return view('posts.show',compact('post',$post));
   }
 
   public function create() {
@@ -29,8 +29,10 @@ class PostController extends Controller
   }
 
   public function store (Request $request) {
-    $post = Post::create([
-      'user_id' =>auth()->id(),
+
+    $post = new Post();
+    $request->validate([
+      'user_id' => auth()->id(),
       'title'   => $request->title,
       'body'    => $request->body
     ]);
@@ -44,24 +46,28 @@ class PostController extends Controller
       $post->image = $filename; # Set it in the database
     }
 
-    $post->save();
+    $post = Post::create();
 
-    return view('post.show')->with(['posts'=>$post]);
+    return redirect('/posts'.$post->id)->with('success', 'Post is opgeslagen');
   }
 
-  public function edit($id) {
+  public function edit(Post $post) {
     $post = Post::find($id);
-    return view('posts.edit')->with(['posts'=>$post]);
+    return view('posts.edit',compact('post',$post));
   }
 
-  public function update(Request $request, $id) {
-    $this->validate($request, [
-      'title' => 'required',
-      'body' => 'required',
-    ]);
+  public function update(Request $request, Post $post) {
 
-    $post = Post::find($id)->update($request->all());
-    return redirect()->route('posts.index')->with('success','het is successvol opgeslagen');
+    $request->validate([
+         'title' => 'required|min:3',
+         'body' => 'required',
+     ]);
+     
+     $post->title = $request->title;
+     $post->body = $request->body;
+     $post->save();
+     $request->session()->flash('message', 'Succesvol opgeslagen!');
+     return view('posts.show');
   }
 
   public function destroy($id) {

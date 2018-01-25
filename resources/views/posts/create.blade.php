@@ -13,13 +13,23 @@
 
 @section('content')
 <div class="container">
+  @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
     <div class="row">
         <div class="col-md-16">
             <div class="panel panel-default">
                 <div class="panel-heading">Maak een post</div>
 
                 <div class="panel-body">
-                  <form method="post" action="/post/create" enctype="multipart/form-data">
+                  <form method="post" action="{{url('posts/show/id')}}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                       <label for="title">Title</label>
