@@ -11,8 +11,8 @@
                 <div class="panel-body">
                   <article>
                     <div class="body">
-                      {!! $posts->body !!}
                       <img src="/images/{{ $posts->image }}"/>
+                      {!! $posts->body !!}
                     </div>
                   </article>
                 </div>

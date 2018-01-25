@@ -17,15 +17,15 @@ class PostController extends Controller
 
   public function index(Post $post) {
     $posts = Post::latest()->paginate(5);
-    return view('post.index')->with(['posts'=>$posts]);
+    return view('posts.index')->with(['posts'=>$posts]);
   }
 
   public function show(Post $post) {
-    return view('post.show')->with(['posts'=>$post]);
+    return view('posts.show')->with(['posts'=>$post]);
   }
 
   public function create() {
-    return view('post.create');
+    return view('posts.create');
   }
 
   public function store (Request $request) {
@@ -49,8 +49,23 @@ class PostController extends Controller
     return view('post.show')->with(['posts'=>$post]);
   }
 
+  public function edit($id) {
+    $post = Post::find($id);
+    return view('posts.edit')->with(['posts'=>$post]);
+  }
+
+  public function update(Request $request, $id) {
+    $this->validate($request, [
+      'title' => 'required',
+      'body' => 'required',
+    ]);
+
+    $post = Post::find($id)->update($request->all());
+    return redirect()->route('posts.index')->with('success','het is successvol opgeslagen');
+  }
+
   public function destroy($id) {
     $post = Post::find($id)->delete();
-    return redirect('/post')->with('success','het is successvol verwijderd');
+    return redirect('/posts')->with('success','het is successvol verwijderd');
   }
 }
