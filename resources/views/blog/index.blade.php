@@ -20,11 +20,11 @@
                 <div class="panel-body">
                   @foreach ($posts as $post)
                     <article>
-                      <h3><a href="/post/{{ $post->id }}">{{ $post->title }}</a></h3>
+                      <h3><a href="/{{ $post->id }}">{{ $post->title }}</a></h3>
                       <h5> {{ $post->created_at->format('d F Y') }} </h5>
                       <div class="body"> {{ substr(strip_tags($post->body), 0, 800) }}{{ strlen(strip_tags($post->body)) > 800 ? "..." : ""}}</div>
                       @if (strlen(strip_tags($post->body)) > 800)
-                        <a href="{{ action('PostController@show', $post) }}" class="read-more">Lees verder..</a>
+                        <a href="{{ action('BlogController@show', $post) }}" class="read-more">Lees verder..</a>
                       @endif
                       <hr>
                     </article>
