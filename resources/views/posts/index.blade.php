@@ -17,7 +17,7 @@
                 </div>
                 <div class="panel-body">
                   <div class="pull-left">
-                    <a class="btn btn-success" href="{{ url('/post/create') }}">Nieuw bericht</a>
+                    <a class="btn btn-success" href="{{ url('/posts/create') }}">Nieuw bericht</a>
                   </div>
 
                   <table class="table table-bordered">
@@ -31,8 +31,8 @@
                         <td>{{ $post->title }}</td>
                         <td>{!! $post->body !!}</td>
                         <td>
-                          <a href="{{ url('/post/{post}') }}" class="btn btn-md btn-info">Laat zien</a>
-                          <a href="{{ url('post/edit', $post->id) }}" class="btn btn-md btn-warning">Bewerk</a>
+                          <a href="{{ url('/posts/{post}') }}" class="btn btn-md btn-info">Laat zien</a>
+                          <a href="{{ url('posts/edit', $post->id) }}" class="btn btn-md btn-warning">Bewerk</a>
                           <form action="{{ action ('PostController@destroy', $post->id)}}" method="post">
                              {{csrf_field()}}
                              <input name="_method" type="hidden" value="DELETE">

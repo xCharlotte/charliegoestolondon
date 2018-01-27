@@ -19,7 +19,7 @@
                 <div class="panel-heading">Maak een post</div>
 
                 <div class="panel-body">
-                  <form method="post" action="/post/create" enctype="multipart/form-data">
+                  <form method="post" action="/posts/create" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="form-group">
                       <label for="title">Title</label>

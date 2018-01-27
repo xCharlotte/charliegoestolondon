@@ -33,7 +33,7 @@
             <div class="panel-body">
 
               {{-- <form method="post" action="{{action('PostController@update', $id)}}"> --}}
-              <form method="post" action="/post/edit" enctype="multipart/form-data">
+              <form method="post" action="/posts/edit" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input name="_method" type="hidden" value="PATCH">
                 <div class="form-group">
