@@ -21,7 +21,7 @@ class PostController extends Controller
   }
 
   public function show(Post $post) {
-    return view('posts.show')->with(['posts'=>$post]);
+    return view('posts.show',compact('post'));
   }
 
   public function create() {
@@ -46,12 +46,12 @@ class PostController extends Controller
 
     $post->save();
 
-    return view('post.show')->with(['posts'=>$post]);
+    return view('posts.show',compact('post'));
   }
 
   public function edit($id) {
     $post = Post::find($id);
-    return view('posts.edit')->with(['posts'=>$post]);
+    return view('posts.edit',compact('post'));
   }
 
   public function update(Request $request, $id) {
