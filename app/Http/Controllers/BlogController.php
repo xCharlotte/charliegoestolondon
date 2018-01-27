@@ -11,4 +11,8 @@ class BlogController extends Controller
     $posts = Post::latest()->paginate(5);
     return view('blog.index')->with(['posts'=>$posts]);
   }
+
+  public function show(Post $post) {
+    return view('blog.show',compact('post'));
+  }
 }
