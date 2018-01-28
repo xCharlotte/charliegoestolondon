@@ -17,18 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+# Back-end
+Route::group(['middleware' => 'auth'], function()
+{
+  Route::get('/posts', 'PostController@index');
+  Route::get('/posts/create','PostController@create');
+  Route::get('/posts/{post}/edit', 'PostController@edit');
+  Route::get('/posts/{post}', 'PostController@show');
+  Route::post('posts/{post}/edit','PostController@update');
+  Route::post('posts/create','PostController@store');
+  Route::delete('/posts/{id}', 'PostController@destroy');
+});
+
 # Front-end
 Route::get('/', 'BlogController@index');
 Route::get('/{post}', 'BlogController@show');
 Route::post('{post}/comment','CommentController@store')->name('addcomment');
-
-# Back-end
-Route::get('posts', 'PostController@index');
-Route::get('posts/create','PostController@create');
-Route::get('/posts/{post}/edit', 'PostController@edit');
-Route::get('/posts/{post}', 'PostController@show');
-Route::post('posts/{post}/edit','PostController@update');
-Route::post('posts/create','PostController@store');
-Route::delete('/posts/{id}', 'PostController@destroy');
 
 Route::get('/home', 'HomeController@index')->name('home');
