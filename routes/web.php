@@ -15,20 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
 # Front-end
 Route::get('/', 'BlogController@index');
 Route::get('/{post}', 'BlogController@show');
 Route::post('{post}/comment','CommentController@store')->name('addcomment');
 
 # Back-end
-Route::get('/posts', 'PostController@index')->middleware('auth');
-Route::get('posts/create','PostController@create')->middleware('auth');
-Route::get('/posts/{post}/edit', 'PostController@edit')->middleware('auth');
+Route::get('posts', 'PostController@index');
+Route::get('posts/create','PostController@create');
+Route::get('/posts/{post}/edit', 'PostController@edit');
 Route::get('/posts/{post}', 'PostController@show');
 Route::post('posts/{post}/edit','PostController@update');
 Route::post('posts/create','PostController@store');
-Route::delete('/posts/{id}', 'PostController@destroy')->middleware('auth');
-
-Auth::routes();
+Route::delete('/posts/{id}', 'PostController@destroy');
 
 Route::get('/home', 'HomeController@index')->name('home');

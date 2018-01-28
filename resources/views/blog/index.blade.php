@@ -21,6 +21,9 @@
                   @foreach ($posts as $post)
                     <article>
                       <h3><a href="/{{ $post->id }}">{{ $post->title }}</a></h3>
+                      @if(!empty($post->image))
+                        <img src="/images/{{ $post->image }}" width="800" height="400" />
+                      @endif
                       <h5> {{ $post->created_at->format('d F Y') }} </h5>
                       <div class="body"> {{ substr(strip_tags($post->body), 0, 800) }}{{ strlen(strip_tags($post->body)) > 800 ? "..." : ""}}</div>
                       @if (strlen(strip_tags($post->body)) > 800)
