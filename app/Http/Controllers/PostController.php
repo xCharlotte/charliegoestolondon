@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use Auth;
 use Image;
 use \Input as Input;
 
 class PostController extends Controller
 {
-
-  public function _construct() {
-    $this->middleware('auth', ['only' => ['create', 'store', 'edit', 'delete']]);
-  }
 
   public function index(Post $post) {
     $posts = Post::latest()->paginate(5);
@@ -28,14 +25,18 @@ class PostController extends Controller
     return view('posts.create');
   }
 
-  public function store (Request $request) {
+  public function store (Request $request, User $user) {
 
+    $title = $request->title;
+    $body = $request->body;
+    $image = $request->image;
+    $user_id = auth()->user()->id;
     $post = new Post();
+
     $request->validate([
-      'user_id' => auth()->id(),
-      'title'   => $request->title,
-      'body'    => $request->body
-    ]);
+         'title' => 'required|min:3',
+         'body' => 'required',
+     ]);
 
     if ($request->hasFile('image')) {
       $image = $request->file('image');
@@ -45,14 +46,13 @@ class PostController extends Controller
 
       $post->image = $filename; # Set it in the database
     }
-
-    $post = Post::create();
+    $post->save();
 
     return view('posts.show',compact('post'));
   }
 
   public function edit(Post $post) {
-    $post = Post::find($id);
+    $post = Post::find($post);
     return view('posts.edit',compact('post'));
   }
 

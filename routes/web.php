@@ -22,9 +22,9 @@ Route::group(['middleware' => 'auth'], function()
 {
   Route::get('/posts', 'PostController@index');
   Route::get('/posts/create','PostController@create');
-  Route::get('/posts/{post}/edit', 'PostController@edit');
-  Route::get('/posts/{post}', 'PostController@show');
-  Route::post('posts/{post}/edit','PostController@update');
+  Route::get('/posts/edit/{post}', 'PostController@edit');
+  Route::get('/posts/{id}', 'PostController@show');
+  Route::post('posts/edit/{post}','PostController@update');
   Route::post('posts/create','PostController@store');
   Route::delete('/posts/{id}', 'PostController@destroy');
 });

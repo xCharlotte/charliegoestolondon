@@ -32,7 +32,7 @@
                         <td>{!! $post->body !!}</td>
                         <td>
                           <a href="{{ url('/posts/{post}') }}" class="btn btn-md btn-info">Laat zien</a>
-                          <a href="{{ url('posts/edit', $post->id) }}" class="btn btn-md btn-warning">Bewerk</a>
+                          <a href="{{ url('posts/edit/{post}') }}" class="btn btn-md btn-warning">Bewerk</a>
                           <form action="{{ action ('PostController@destroy', $post->id)}}" method="post">
                              {{csrf_field()}}
                              <input name="_method" type="hidden" value="DELETE">
